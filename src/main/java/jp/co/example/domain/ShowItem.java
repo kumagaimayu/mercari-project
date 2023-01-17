@@ -1,7 +1,7 @@
 package jp.co.example.domain;
 
 /**
- * 商品一覧表示するためのドメイン.
+ * 商品を表示するためのドメイン.
  * 
  * @author kumagaimayu
  *

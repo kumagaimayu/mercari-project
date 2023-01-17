@@ -30,7 +30,6 @@ public class LoginUser extends org.springframework.security.core.userdetails.Use
 	 * @return ユーザ情報
 	 */
 	public User getUser() {
-		System.out.println("ログインユーザー情報" + user);
 		return user;
 	}
 }

@@ -1,6 +1,5 @@
 package jp.co.example.controller;
 
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,7 +33,6 @@ public class RegisterController {
 	 */
 	@RequestMapping("/toRegister")
 	public String toRegister(RegisterForm registerForm) {
-		System.out.println("画面表示");
 		return "register";
 	}
 
@@ -48,11 +46,14 @@ public class RegisterController {
 	 */
 	@RequestMapping("/register")
 	public String register(@Validated RegisterForm registerForm, BindingResult result, Model model) {
-		System.out.println("コントローラーまで来たよ");
-		// 入力内容を保持しつつ登録画面に遷移
-		System.out.println("フォームに入ってるか？" + registerForm);
-		
 		if (result.hasErrors()) {
+			return toRegister(registerForm);
+		}
+
+		User existUser = registerService.findByMail(registerForm.getMailAddress());
+		if (existUser != null) {
+			System.out.println("通過");
+			model.addAttribute("registerError","すでに登録されているメールアドレスです。");
 			return toRegister(registerForm);
 		}
 		
@@ -61,7 +62,6 @@ public class RegisterController {
 		// authorityは0とする.
 		user.setAuthority(0);
 		registerService.register(user);
-		System.out.println("ユーザー情報" + user);
 		return "redirect:/login/toLogin";
 	}
 }

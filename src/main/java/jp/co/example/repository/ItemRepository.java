@@ -80,7 +80,7 @@ public class ItemRepository {
 	 * @return itemリスト
 	 */
 	public List<ShowItem> findAll(Integer offset) {
-		String sql = "select i.count, i.id, i.name,i.condition, c.name_all as category, i.brand, i.price, i.shipping, i.description from (select count(id) over() as count, id,name,category,condition, brand, price,shipping,description from items order by id limit 30 offset :offset) as i left outer join category as c on i.category = c.id order by i.id desc;";
+		String sql = "select i.count, i.id, i.name,i.condition, c.name_all as category, i.brand, i.price, i.shipping, i.description from (select count(id) over() as count, id,name,category,condition, brand, price,shipping,description from items order by id desc limit 30 offset :offset) as i left outer join category as c on i.category = c.id order by i.id desc;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("offset", offset);
 		List<ShowItem> itemList = template.query(sql, param, SHOW_ITEM_PAGE_ROW_MAPPER);
 
@@ -119,7 +119,7 @@ public class ItemRepository {
 	 * 商品情報の変更を行う
 	 * 
 	 * @param item 商品
-	 * @return ID
+	 * @return ID 商品ID
 	 */
 	public Integer update(Item item) {
 		String sql = "update items set name=:name,condition=:conditionId,category=:category,brand=:brand,price=:price,shipping=:shipping,description=:description where id=:id;";
@@ -131,9 +131,9 @@ public class ItemRepository {
 	/**
 	 * 名前、カテゴリ、ブランドから検索する.
 	 * 
-	 * @param name
-	 * @param category
-	 * @param brand
+	 * @param name 商品名
+	 * @param category　カテゴリ
+	 * @param brand　ブランド
 	 * @return
 	 */
 	public List<ShowItem> findByNameCategoryBrand(String name, Integer category, String brand, Integer offset) {

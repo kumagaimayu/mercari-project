@@ -16,14 +16,18 @@ import jp.co.example.form.LoginForm;
 @RequestMapping("/login")
 public class LoginController {
 
+
 	/**
-	 * ログイン画面の表示.
+	 * ログイン画面表示.
 	 * 
 	 * @param loginForm ログインフォーム
+	 * @param model モデル
+	 * @param error エラーの有無（正しいログイン情報が入力されたか）
 	 * @return ログイン画面
 	 */
 	@RequestMapping("/toLogin")
 	public String toLogin(LoginForm loginForm, Model model, Boolean error) {
+		//初期表示などの場合
 		if (error == null) {
 			return "login";
 		}
@@ -42,5 +46,4 @@ public class LoginController {
 	public String login() {
 		return "/showList/";
 	}
-
 }

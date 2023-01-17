@@ -1,5 +1,7 @@
 package jp.co.example.repository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
@@ -7,8 +9,6 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import jp.co.example.domain.User;
@@ -50,7 +50,11 @@ public class UserRepository {
 	public User findByMail(String mailAddress) {
 		String sql = "select id, name, mailaddress, password from users where mailaddress = :mailAddress";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress);
-		User user = template.queryForObject(sql, param, USER_ROW_MAPPER);
-		return user;
+		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
+		if (userList.size() == 0) {
+			System.out.println("通過!!!!!!");
+			return null;
+		}
+		return userList.get(0);
 	}
 }

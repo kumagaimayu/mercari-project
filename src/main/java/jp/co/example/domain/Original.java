@@ -98,5 +98,4 @@ public class Original {
 				+ ", category_name=" + category_name + ", brand_name=" + brand_name + ", price=" + price + ", shipping="
 				+ shipping + ", item_description=" + item_description + "]";
 	}
-
 }

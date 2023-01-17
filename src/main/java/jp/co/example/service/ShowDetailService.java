@@ -27,7 +27,6 @@ public class ShowDetailService {
 	 */
 	public ShowItem findById(Integer id) {
 		ShowItem item = itemRepository.findById(id);
-		System.out.println("商品詳細サービス商品" + item.getName());
 		return item;
 	}
 }

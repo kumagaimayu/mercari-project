@@ -30,11 +30,15 @@ public class RegisterService {
 	 * @param user ユーザー
 	 */
 	public void register(User user) {
-		System.out.println("サービスクラス" + user);
 		// パスワードをハッシュ化
 		// encodeメソッドでハッシュ化
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		// ハッシュ化されたパスワードが入る
 		userRepository.insert(user);
+	}
+	
+	public User findByMail(String mailAddress) {
+		User user = userRepository.findByMail(mailAddress);
+		return user;
 	}
 }
