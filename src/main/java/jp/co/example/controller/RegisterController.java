@@ -53,6 +53,7 @@ public class RegisterController {
 		User existUser = registerService.findByMail(registerForm.getMailAddress());
 		if (existUser != null) {
 			System.out.println("通過");
+			System.out.println(existUser);
 			model.addAttribute("registerError","すでに登録されているメールアドレスです。");
 			return toRegister(registerForm);
 		}
