@@ -34,7 +34,6 @@ public class AddItemService {
 	 */
 	public List<Category> findBigCategory() {
 		List<Category> bigCategoryList = categoryRepository.findBigCategoryName();
-
 		return bigCategoryList;
 	}
 

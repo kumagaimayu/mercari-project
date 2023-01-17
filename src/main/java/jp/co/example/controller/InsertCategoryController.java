@@ -26,9 +26,6 @@ public class InsertCategoryController {
 
 	@Autowired
 	private InsertCategoryService insertCategoryService;
-	
-	@Autowired
-	private OriginalRepository originalRepository;
 
 	/**
 	 * カテゴリ名を取得する.
@@ -59,20 +56,6 @@ public class InsertCategoryController {
 			}catch(Exception e) {
 			}
 		}
-		
-//		//実験
-//		//スラッシュ区切りの生のデータが格納されているOriginal型のリスト
-//		List<Original> categoryList = originalRepository.findCategory();
-//		//String型のリストをインスタンス化
-//		List<String> categoryNameList2 = new ArrayList<>();
-//		//名前が格納されているリストを回した
-//		 for(Original categoryname: categoryList) {
-//			 categoryNameList2.add(categoryname.getCategory_name());
-//		 }
-//		 
-//		 for(String category :categoryNameList2) {
-//			 String[] categoryNameList3 = category.split("/");
-//		 }
 		 
 		// 重複のない大項目のリストを回す
 		for (String bigCategoryName : bigCategoryList) {
@@ -81,15 +64,7 @@ public class InsertCategoryController {
 			bigCategory.setName(bigCategoryName);
 			// 大項目だけインサートして、返ってきたIDをセットする.
 			Integer middleParentId = insertCategoryService.insertCategory(bigCategory);
-			// List<Category> middleCategoryList = new ArrayList<>();
-//			for (String[] categoryNameArray : categoryNameArrayList) {
-//				if (categoryNameArray[0].equals(bigCategory)) {
-//					Category middleCategory = new Category();
-//					middleCategory.setParent(middleParentId);
-//					middleCategory.setName(categoryNameArray[1]);
-//					middleCategoryList.add(middleCategory);
-//				}
-//			}
+
 			// 親の所持している中カテゴリ名を中カテゴリの名前のリストに挿入
 			Set<String> middleNameList = new HashSet<>();
 			for (String[] name : categoryNameArrayList) {

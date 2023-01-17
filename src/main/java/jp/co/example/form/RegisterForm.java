@@ -73,5 +73,4 @@ public class RegisterForm {
 		return "RegisterForm [name=" + name + ", mailAddress=" + mailAddress + ", password=" + password + ", authority="
 				+ authority + "]";
 	}
-
 }

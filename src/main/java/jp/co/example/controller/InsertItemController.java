@@ -25,7 +25,6 @@ public class InsertItemController {
 	@RequestMapping("/insertItem")
 	public String insertItem() {
 		List<Item> itemList = insertItemService.findItemInfo();
-		System.out.println(itemList.size()+"コントローラで作成したitemListの数");
 		for(Item item : itemList) {
 			insertItemService.insertItem(item);
 		}

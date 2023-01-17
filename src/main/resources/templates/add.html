@@ -47,11 +47,9 @@
 					<li sec:authorize="!isAuthenticated()"><a
 						th:href="@{/login/toLogin}">Login&nbsp;</a></li>
 					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout/}">Logout&nbsp;</a></li>
-					<!-- <li><a id="logout" th:href="@{/login/toLogin}">Logout&nbsp;<i
-							class="fa fa-power-off"></i></a></li> -->
 				</ul>
 				<p class="navbar-text navbar-right">
-					<span id="loginName">user: userName</span>
+					<span id="loginName" sec:authentication="name"></span>
 				</p>
 			</div>
 		</div>

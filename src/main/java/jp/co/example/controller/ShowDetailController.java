@@ -21,11 +21,17 @@ public class ShowDetailController {
 	@Autowired
 	private ShowDetailService showDetailService;
 	
+	/**
+	 * 商品詳細の表示.
+	 * 
+	 * @param id 商品ID 
+	 * @param model モデル
+	 * @return 詳細画面
+	 */
 	@RequestMapping("/detail")
 	public String showDetail(Integer id, Model model) {
 		ShowItem item = showDetailService.findById(id);
 		model.addAttribute("item", item);
 		return "detail";
 	}
-
 }

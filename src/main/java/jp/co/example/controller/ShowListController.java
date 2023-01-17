@@ -96,10 +96,15 @@ public class ShowListController {
 		return "list";
 	}
 
-	// TODO 全件だけ行うメソッドを書く
+	/**
+	 * 検索情報などを保持しない商品一覧の表示を行う.
+	 * @param model モデル
+	 * @param page ページ
+	 * @param loginUser  ユーザーのログイン情報
+	 * @return 商品一覧画面
+	 */
 	@RequestMapping("/top")
 	public String top(Model model, Integer page, @AuthenticationPrincipal LoginUser loginUser) {
-		System.out.println("トップだよ");
 		List<ShowItem> itemList = new ArrayList<>();
 
 		Integer offset = 0;
@@ -120,6 +125,5 @@ public class ShowListController {
 		model.addAttribute("page", page);
 		model.addAttribute("itemList", itemList);
 		return "list";
-
 	}
 }

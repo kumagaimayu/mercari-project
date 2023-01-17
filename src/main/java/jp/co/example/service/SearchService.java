@@ -12,6 +12,8 @@ import jp.co.example.form.SearchForm;
 import jp.co.example.repository.ItemRepository;
 
 /**
+ * 商品検索を行うサービス.
+ * 
  * @author kumagaimayu
  *
  */
@@ -22,6 +24,13 @@ public class SearchService {
 	@Autowired
 	private ItemRepository itemRepository;
 
+	/**
+	 * 商品を検索します.
+	 * 
+	 * @param searchForm 検索フォーム
+	 * @param offset ページングに使用する商品の順番
+	 * @return 商品リスト
+	 */
 	public List<ShowItem> search(SearchForm searchForm, Integer offset) {
 		List<ShowItem> itemList = new ArrayList<ShowItem>();
 
@@ -63,5 +72,4 @@ public class SearchService {
 				searchForm.getBrand(), offset);
 		return itemList;
 	}
-
 }

@@ -20,9 +20,13 @@ public class OriginalInsertService {
 	@Autowired
 	private OriginalRepository originalRepository;
 
+	/**
+	 * originalテーブルにデータを挿入する.
+	 * 
+	 * @param original データ
+	 */
 	public void originalInsert(Original original) {
 		originalRepository.insert(original);
 
 	}
-
 }

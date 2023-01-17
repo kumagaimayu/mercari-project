@@ -100,7 +100,6 @@ public class EditItemController {
 		item.setShipping(0);
 		item.setId(Integer.parseInt(addItemForm.getId()));
 		Integer id = editItemService.edit(item);
-		System.out.println("編集結果" + item);
 		return "redirect:/showDetail/detail?id=" + id;
 	}
 }
