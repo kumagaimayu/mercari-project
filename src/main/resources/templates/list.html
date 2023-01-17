@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- css -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous" />
+<link rel="stylesheet" th:href="@{/css/mercari.css}" />
+<!-- script -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+<title>Rakus Items</title>
+</head>
+<body>
+	<!-- navbar -->
+	<nav class="navbar navbar-inverse">
+		<div class="navbar-header">
+			<button type="submit" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" th:href="@{/showList/top}">Rakus Items</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<div>
+				<ul class="nav navbar-nav navbar-right">
+					<li sec:authorize="!isAuthenticated()"><a
+						th:href="@{/login/toLogin}">Login&nbsp;</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout/}">Logout&nbsp;</a></li>
+				</ul>
+				<p class="navbar-text navbar-right">
+					<span id="loginName" sec:authentication="name"></span>
+				</p>
+			</div>
+		</div>
+	</nav>
+
+	<div id="main" class="container-fluid">
+		<!-- addItem link -->
+		<div id="addItemButton">
+			<a class="btn btn-default" th:href="@{/addItem/toAddItem}"><i
+				class="fa fa-plus-square-o"></i> Add New Item</a>
+		</div>
+
+		<!-- 検索フォーム -->
+		<span th:text="${result}"></span><br>
+		<div id="forms">
+			<form th:action="@{/showList/}" method="POST" class="form-inline"
+				role="form" th:object="${searchForm}">
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="item name"
+						th:field="*{name}" />
+				</div>
+				<div class="form-group">
+					<i class="fa fa-plus"></i>
+				</div>
+				<div class="form-group">
+					<select class="form-control" th:field="*{bigCategory}">
+						<option value="">-- parentCategory --</option>
+						<option th:each="bigCategory : ${bigCategoryList}"
+							th:value="${bigCategory.id}" th:text="${bigCategory.name}">-
+							-</option>
+					</select> <select class="form-control" th:field="*{middleCategory}">
+						<option value="">-- childCategory --</option>
+					</select> <select class="form-control" th:field="*{smallCategory}">
+						<option value="">-- grandChild --</option>
+					</select>
+				</div>
+				<div class="form-group">
+					<i class="fa fa-plus"></i>
+				</div>
+				<div class="form-group">
+					<input type="text" class="form-control" placeholder="brand"
+						th:field="*{brand}" />
+				</div>
+				<div class="form-group"></div>
+				<button type="submit" class="btn btn-default">
+					<i class="fa fa-angle-double-right"></i> search
+				</button>
+			</form>
+		</div>
+
+		<!-- pagination -->
+		<div class="pages">
+			<nav class="page-nav">
+				<ul class="pager">
+					<li class="previous"><a
+						th:href="@{/showList/}+'?page='+${page-1}">&larr; prev</a></li>
+					<li class="next"><a th:href="@{/showList/}+'?page='+${page+1}">next
+							&rarr;</a></li>
+				</ul>
+			</nav>
+		</div>
+
+		<!-- table -->
+		<div class="table-responsive">
+			<table id="item-table" class="table table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>name</th>
+						<th>price</th>
+						<th>category</th>
+						<th>brand</th>
+						<th>cond</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="item:${itemList}">
+						<td class="item-name"><a
+							th:href="@{/showDetail/detail}+'?id='+${item.id}"
+							th:text="${item.name}">Razer BlackWidow Chroma Keyboard</a></td>
+						<td class="item-price" th:text="${item.price}">52.0</td>
+						<td class="item-category" th:text="${item.category}"><a
+							th:href="">Electronics</a> / <a href="">Computers &amp;
+								Tablets</a> / <a href="">Components &amp; Parts</a></td>
+						<td class="item-brand" th:text="${item.brand}"><a href="">Razer</a></td>
+						<td class="item-condition" th:text="${item.condition}">3</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<!-- pagination -->
+		<div class="pages">
+			<nav class="page-nav">
+				<ul class="pager">
+					<li class="previous"><a
+						th:href="@{/showList/}+'?page='+${page-1}">&larr; prev</a></li>
+					<li class="next"><a th:href="@{/showList/}+'?page='+${page+1}">next
+							&rarr;</a></li>
+				</ul>
+			</nav>
+			<!-- ページ番号を指定して表示するフォーム -->
+			<div id="select-page">
+				<form class="form-inline" th:action="@{/showList/}">
+					<div class="form-group">
+						<div class="input-group col-xs-6">
+							<label></label> <input type="text" class="form-control"
+								name="page" />
+							<!-- 総ページ数 -->
+							<div class="input-group-addon" th:text="${pageCount}">/ 20</div>
+						</div>
+						<div class="input-group col-xs-1">
+							<button type="submit" class="btn btn-default">Go</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script src="../js/search_category_name.js"></script>
+</body>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</html>

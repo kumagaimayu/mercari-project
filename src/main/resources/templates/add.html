@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<!-- css -->
+<link
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+	rel="stylesheet"
+	integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
+	crossorigin="anonymous" />
+<link rel="stylesheet" th:href="@{/css/mercari.css}" />
+<!-- script -->
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+	crossorigin="anonymous"></script>
+
+<title>Rakus Items</title>
+</head>
+<body>
+	<!-- navbar -->
+	<nav class="navbar navbar-inverse">
+		<div class="navbar-header">
+			<button type="submit" class="navbar-toggle collapsed"
+				data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+				aria-controls="navbar">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" th:href="@{/showList/top}">Rakus Items</a>
+		</div>
+		<div id="navbar" class="collapse navbar-collapse">
+			<div>
+				<ul class="nav navbar-nav navbar-right">
+					<li sec:authorize="!isAuthenticated()"><a
+						th:href="@{/login/toLogin}">Login&nbsp;</a></li>
+					<li sec:authorize="isAuthenticated()"><a th:href="@{/logout/}">Logout&nbsp;</a></li>
+					<!-- <li><a id="logout" th:href="@{/login/toLogin}">Logout&nbsp;<i
+							class="fa fa-power-off"></i></a></li> -->
+				</ul>
+				<p class="navbar-text navbar-right">
+					<span id="loginName">user: userName</span>
+				</p>
+			</div>
+		</div>
+	</nav>
+
+	<!-- details -->
+	<div id="input-main" class="container">
+		<!-- 戻るボタン -->
+		<a type="submit" class="btn btn-default" th:href="@{/showList/}"><i
+			class="fa fa-reply"></i> back</a>
+		<h2>Add</h2>
+
+		<!-- add form -->
+		<form th:action="@{/addItem/addItem}" method="POST"
+			class="form-horizontal" th:object="${addItemForm}">
+			<!-- name -->
+			<div class="form-group">
+				<label for="inputName" class="col-sm-2 control-label">name</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="inputName" name="name"
+						th:field="*{name}" />
+				<div class="col-sm-8">
+					<span class="text-danger" th:errors="*{name}"></span>
+				</div>
+				</div>
+			</div>
+			<!-- price -->
+			<div class="form-group">
+				<label for="price" class="col-sm-2 control-label">price</label>
+				<div class="col-sm-8">
+					<input type="text" class="form-control" id="price" name="price"
+						th:field="*{price}" />
+				<div class="col-sm-8">
+					<span class="text-danger" th:errors="*{price}"></span>
+				</div>
+				</div>
+			</div>
+			<!-- category -->
+			<div class="form-group">
+				<label for="category" class="col-sm-2 control-label">category</label>
+				<div class="col-sm-8">
+					<select class="form-control" th:field="*{bigCategoryList}">
+						<option value="">-- parentCategory --</option>
+						<option th:each="bigCategory : ${bigCategoryList}"
+							th:value="${bigCategory.id}" th:text="${bigCategory.name}">parentCategory1</option>
+					</select>
+				</div>
+			</div>
+			<!-- 中カテゴリ出現 -->
+			<div class="form-group">
+				<label for="category" class="col-sm-2 control-label"></label>
+				<div class="col-sm-8">
+					<select class="form-control" th:field="*{middleCategoryList}">
+						<option value="">-- childCategory --</option>
+					</select>
+				</div>
+			</div>
+			<!-- 小カテゴリ出現 -->
+			<div class="form-group">
+				<label for="category" class="col-sm-2 control-label"></label>
+				<div class="col-sm-8">
+					<select class="form-control" th:field="*{category}">
+						<option value="">-- grandChild --</option>
+					</select>
+				</div>
+			</div>
+<!-- 			<div class="form-group">
+				<label for="category" class="col-sm-2 control-label"></label>
+				<div class="col-sm-8">
+					<span class="text-danger" th:errors="*{category}"></span>
+				</div>
+			</div> -->
+			<!-- brand -->
+			<div class="form-group">
+				<label for="brand" class="col-sm-2 control-label">brand</label>
+				<div class="col-sm-8">
+					<input type="text" id="brand" class="form-control" name="brand"
+						th:field="*{brand}" />
+				</div>
+			</div>
+			<!-- condition -->
+			<div class="form-group">
+				<label for="condition" class="col-sm-2 control-label">condition</label>
+				<div class="col-sm-8">
+					<label for="condition1" class="radio-inline"> <input
+						type="radio" name="conditionId" id="condition1" th:value="1" /> 1
+					</label> <label for="condition2" class="radio-inline"> <input
+						type="radio" name="conditionId" id="condition2" th:value="2" /> 2
+					</label> <label for="condition3" class="radio-inline"> <input
+						type="radio" name="conditionId" id="condition3" th:value="3" /> 3
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="category" class="col-sm-2 control-label"></label>
+				<div class="col-sm-8">
+					<span class="text-danger" th:errors="*{conditionId}"></span>
+				</div>
+			</div>
+			<!-- description -->
+			<div class="form-group">
+				<label for="description" class="col-sm-2 control-label">description</label>
+				<div class="col-sm-8">
+					<textarea name="description" id="description" class="form-control"
+						rows="5" th:field="*{description}"></textarea>
+					<span class="text-danger"></span>
+				</div>
+			</div>
+			<!-- submit button -->
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">Submit</button>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script th:src="@{/js/category_name.js}"></script>
+</body>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</html>
