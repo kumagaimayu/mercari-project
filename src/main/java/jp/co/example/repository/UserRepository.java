@@ -48,11 +48,10 @@ public class UserRepository {
 	 * @return ユーザー
 	 */
 	public User findByMail(String mailAddress) {
-		String sql = "select id, name, mailaddress, password from users where mailaddress = :mailAddress";
+		String sql = "select id, name, mailaddress, password ,authority from users where mailaddress = :mailAddress";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", mailAddress);
 		List<User> userList = template.query(sql, param, USER_ROW_MAPPER);
 		if (userList.size() == 0) {
-			System.out.println("通過!!!!!!");
 			return null;
 		}
 		return userList.get(0);
