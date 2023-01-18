@@ -1,7 +1,6 @@
 package jp.co.example.form;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * 商品を追加する際に使用するフォーム.
@@ -17,8 +16,8 @@ public class AddItemForm {
 	@NotBlank(message = "商品名は必須です。")
 	private String name;
 	/** 状態 */
-	@NotNull(message = "コンディションを選択してください。")
-	private Integer conditionId;
+	@NotBlank(message = "コンディションを選択してください。")
+	private String conditionId;
 	/** カテゴリ */
 	private Integer category;
 	/** ブランド */
@@ -49,6 +48,13 @@ public class AddItemForm {
 		return Double.parseDouble(price);
 	}
 
+	/**
+	 * @return Integer型の状態
+	 */
+	public Integer getIntConditionId() {
+		return Integer.parseInt(conditionId);
+	}
+
 	public String getId() {
 		return id;
 	}
@@ -65,11 +71,11 @@ public class AddItemForm {
 		this.name = name;
 	}
 
-	public Integer getConditionId() {
+	public String getConditionId() {
 		return conditionId;
 	}
 
-	public void setConditionId(Integer conditionId) {
+	public void setConditionId(String conditionId) {
 		this.conditionId = conditionId;
 	}
 

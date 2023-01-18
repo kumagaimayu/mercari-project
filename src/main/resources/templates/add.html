@@ -179,6 +179,6 @@
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script th:src="@{/js/category_name.js}"></script>
 </body>
-<meta name="_csrf" th:content="${_csrf.token}" />
-<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<meta th:if="${_csrf}" name="_csrf" th:content="${_csrf.token}" />
+<meta th:if="${_csrf}" name="_csrf_header" th:content="${_csrf.headerName}" />
 </html>

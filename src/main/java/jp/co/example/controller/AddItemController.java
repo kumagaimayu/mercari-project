@@ -64,6 +64,7 @@ public class AddItemController {
 		BeanUtils.copyProperties(addItemForm, item);
 		item.setShipping(0);
 		item.setPrice(addItemForm.getDoublePrice());
+		item.setConditionId(addItemForm.getIntConditionId());
 		Integer id = addItemService.addItem(item);
 		return "redirect:/showDetail/detail?id=" + id;
 	}
