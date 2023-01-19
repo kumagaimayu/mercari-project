@@ -54,6 +54,7 @@ public class UserRepository {
 		if (userList.size() == 0) {
 			return null;
 		}
+		
 		return userList.get(0);
 	}
 }
