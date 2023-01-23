@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
-
 import jp.co.example.domain.Item;
 import jp.co.example.domain.ShowItem;
 
@@ -105,7 +104,7 @@ public class ItemRepository {
 	 * 
 	 * @param item 商品情報
 	 */
-	public Integer insert(Item item) {
+	public int insert(Item item) {
 		String sql = "insert into items(name,condition,category,brand,price,shipping,description) values(:name,:conditionId,:category,:brand,:price,:shipping,:description);";
 		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
 		KeyHolder keyHolder = new GeneratedKeyHolder();
@@ -131,9 +130,9 @@ public class ItemRepository {
 	/**
 	 * 名前、カテゴリ、ブランドから検索する.
 	 * 
-	 * @param name 商品名
-	 * @param category　カテゴリ
-	 * @param brand　ブランド
+	 * @param name     商品名
+	 * @param category カテゴリ
+	 * @param brand    ブランド
 	 * @return
 	 */
 	public List<ShowItem> findByNameCategoryBrand(String name, Integer category, String brand, Integer offset) {
