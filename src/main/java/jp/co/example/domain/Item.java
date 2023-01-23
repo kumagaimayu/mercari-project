@@ -44,10 +44,6 @@ public class Item {
 		return conditionId;
 	}
 
-	public void setConditionId(Integer conditionId) {
-		this.conditionId = conditionId;
-	}
-
 	public Integer getCategory() {
 		return category;
 	}
