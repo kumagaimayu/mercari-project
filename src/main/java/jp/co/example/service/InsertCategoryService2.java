@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import jp.co.example.domain.Category;
-import jp.co.example.repository.CategoryRepository;
+import jp.co.example.domain.Category2;
+import jp.co.example.repository.CategoryRepository2;
 import jp.co.example.repository.OriginalRepository;
 
 /**
- * カテゴリを振り分けるサービス .
+ * OriginalテーブルからCategoryを振り分けるサービス.
  * 
  * @author kumagaimayu
  *
  */
 @Service
 @Transactional
-public class InsertCategoryService {
+public class InsertCategoryService2 {
 
 	@Autowired
-	private CategoryRepository categoryRepository;
+	private CategoryRepository2 categoryRepository2;
 
 	@Autowired
 	private OriginalRepository originalRepository;
@@ -42,8 +42,9 @@ public class InsertCategoryService {
 	 * @param category カテゴリ
 	 * @return ID
 	 */
-	public Integer insertCategory(Category category) {
-		Integer id = categoryRepository.insertCategory(category);
-		return id;
+	public Integer insertCategory(Category2 category) {
+		Integer category_id = categoryRepository2.insertCategory(category);
+		return category_id;
 	}
+
 }
