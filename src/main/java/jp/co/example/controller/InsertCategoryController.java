@@ -40,7 +40,6 @@ public class InsertCategoryController {
 		Set<String> bigCategoryList = new HashSet<>();
 		// スラッシュ区切りの文字列を配列にしたものを挿入するリスト.
 		List<String[]> categoryNameArrayList = new ArrayList<>();
-		// スラッシュ区切りの文字列をスラッシュ区切りにして配列に格納.
 		//取得したスラッシュ区切りの文字列のリストを回して/で区切った配列をリストに格納
 		for (String categoryName : categoryNameList) {
 			//nullだった場合、空行が入るため、配列の[0]はnullじゃない、[1]、[2]がnullの場合をキャッチして処理を実施しない
@@ -59,7 +58,6 @@ public class InsertCategoryController {
 		 
 		// 重複のない大項目のリストを回す
 		for (String bigCategoryName : bigCategoryList) {
-			//
 			Category bigCategory = new Category();
 			bigCategory.setName(bigCategoryName);
 			// 大項目だけインサートして、返ってきたIDをセットする.
