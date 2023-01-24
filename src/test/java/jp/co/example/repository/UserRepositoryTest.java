@@ -41,7 +41,7 @@ class UserRepositoryTest {
 		System.out.println("UserRepositoryのテスト開始");
 		User user = new User();
 		user.setName("テスト太郎");
-		user.setMailAddress("test@mail.com");
+		user.setMailAddress("test@example.com");
 		user.setPassword("testPass11");
 		user.setAuthority(0);
 		userRepository.insert(user);
@@ -50,7 +50,7 @@ class UserRepositoryTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		MapSqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", "test@mail.com");
+		MapSqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress", "test@example.com");
 		template.update("delete from users where mailaddress = :mailAddress", param);
 		System.out.println("テスト用データの削除");
 	}
@@ -58,10 +58,10 @@ class UserRepositoryTest {
 	@Test
 	void findByMailTest() {
 		System.out.println("メールアドレスで検索するテスト開始");
-		User resultUser = userRepository.findByMail("test@mail.com");
+		User resultUser = userRepository.findByMail("test@example.com");
 		System.out.println(resultUser);
 		assertEquals("テスト太郎", resultUser.getName(), "名前が登録されていません");
-		assertEquals("test@mail.com", resultUser.getMailAddress(), "メールアドレスが登録されていません");
+		assertEquals("test@example.com", resultUser.getMailAddress(), "メールアドレスが登録されていません");
 		// パスワードハッシュ化,Encorder使用
 		assertEquals("testPass11", resultUser.getPassword(), "パスワードが登録されていません");
 		assertEquals(0, resultUser.getAuthority(), "権限情報がありません");
@@ -71,7 +71,7 @@ class UserRepositoryTest {
 	@Test
 	void findByMailMiss() {
 		System.out.println("メールアドレスで検索し失敗させるテスト開始");
-		User resultUser = userRepository.findByMail("test@mail.com");
+		User resultUser = userRepository.findByMail("test@example.com");
 		assertEquals("テスト次郎", resultUser.getName(), "名前が登録されていません");
 		System.out.println("メールアドレスで検索し失敗させるテスト終了");
 	}
