@@ -25,9 +25,6 @@ class UserRepositoryTest {
 	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
-	private PasswordEncoder passwordEncoder;
-
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
@@ -76,7 +73,6 @@ class UserRepositoryTest {
 		System.out.println("メールアドレスで検索し失敗させるテスト終了");
 	}
 	
-	//TODO このメソッドはマストなのか
 	@Test
 	void test() {
 		fail("Not yet implemented");

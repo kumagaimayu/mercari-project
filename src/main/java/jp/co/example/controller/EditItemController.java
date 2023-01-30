@@ -9,10 +9,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import jp.co.example.common.Condition;
 import jp.co.example.domain.Category;
 import jp.co.example.domain.Item;
 import jp.co.example.domain.ShowItem;
 import jp.co.example.form.AddItemForm;
+import jp.co.example.repository.ItemRepository;
 import jp.co.example.service.AddItemService;
 import jp.co.example.service.EditItemService;
 import jp.co.example.service.ShowDetailService;
@@ -33,9 +35,6 @@ public class EditItemController {
 	private AddItemService addItemService;
 
 	@Autowired
-	private ShowDetailService showDetailService;
-
-	@Autowired
 	private EditItemService ediItemService;
 
 	/**
@@ -49,35 +48,36 @@ public class EditItemController {
 	 */
 	@RequestMapping("/toEditItem")
 	public String toEditItem(AddItemForm addItemForm, BindingResult result, Model model, Integer id) {
-		// 表示用のitem情報が格納
-		// Item型に直す
-		ShowItem item = showDetailService.findById(id);
+		Item item = ediItemService.findItemById(id);
+//		ShowItem item = showDetailService.findById(id);
 		model.addAttribute("item", item);
+		//コンディションの値を表示
+		addItemForm.setCondition(item.getCondition().toString());
 		// splitして配列のListを作って
-		String[] categoryNameArray = item.getCategory().split("/");
+//		String[] categoryNameArray = item.getCategory().split("/");
 		// 小カテゴリのIDを取得してモデルに入れる
-		Integer smallCategoryId = ediItemService.findByNameAll(item.getCategory());
-		model.addAttribute("smallCategoryId", smallCategoryId);
+		model.addAttribute("smallCategoryId", item.getCategory());
+		// 小カテゴリの名前
+		String smallCategoryName = editItemService.findCategoryById(item.getCategory()).getName();
+		model.addAttribute("smallCategoryName", smallCategoryName);
+		String[] categoryNameArray = editItemService.findCategoryById(item.getCategory()).getPath().split("/");
 		// 中カテゴリの名前
 		String middleCategoryName = categoryNameArray[1];
 		model.addAttribute("middleCategoryName", middleCategoryName);
 		// 中カテゴリIDを取得
-		Integer middleCategoryId = editItemService.findMiddleId(smallCategoryId);
-		model.addAttribute("middleCategoryId", middleCategoryId);
-		// 大カテゴリIDを取得
-		Integer bigCategoryId = editItemService.findParentId(middleCategoryId);
-		model.addAttribute("bigCategoryId", bigCategoryId);
-		// 小カテゴリの名前
-		String smallCategoryName = categoryNameArray[2];
-		model.addAttribute("smallCategoryName", smallCategoryName);
-		// 親が選択された時点でidが送られるためjsを経由して表示可能 IDを入れるよ
-		List<Category> smallCategoryList = addItemService.findChildCategory(middleCategoryId);
-		model.addAttribute("smallCategoryList", smallCategoryList);
+//		Integer middleCategoryId = editItemService.findMiddleId(smallCategoryId);
+//		model.addAttribute("middleCategoryId", middleCategoryId);
+//		Integer bigCategoryId = editItemService.findParentId(middleCategoryId);
+//		model.addAttribute("bigCategoryId", bigCategoryId);
 		// 大カテゴリの名前
 		String bigCategoryName = categoryNameArray[0];
 		model.addAttribute("bigCategoryName", bigCategoryName);
+		// 親が選択された時点でidが送られるためjsを経由して表示可能 IDを入れるよ
+		List<Category> smallCategoryList = addItemService.findChildCategory(bigCategoryName + "/" + middleCategoryName,
+				3);
+		model.addAttribute("smallCategoryList", smallCategoryList);
 		// 親が選択された時点でidが送られるためjsを経由して表示可能
-		List<Category> middleCategoryList = addItemService.findChildCategory(bigCategoryId);
+		List<Category> middleCategoryList = addItemService.findChildCategory(bigCategoryName, 2);
 		model.addAttribute("middleCategoryList", middleCategoryList);
 		// 編集画面表示用のカテゴリプルダウン情報をモデルに格納
 		List<Category> bigCategoryList = addItemService.findBigCategory();
@@ -97,8 +97,13 @@ public class EditItemController {
 	public String editItem(AddItemForm addItemForm, BindingResult result, Model model) {
 		Item item = new Item();
 		BeanUtils.copyProperties(addItemForm, item);
-		item.setShipping(0);
 		item.setId(Integer.parseInt(addItemForm.getId()));
+		item.setCategory(addItemForm.getIntCategory());
+		// enumを使用してセットするなら
+//		Condition condition = Condition.getByValue(addItemForm.getIntCondition()); 
+//		item.setCondition(condition.getValue());
+		item.setCondition(addItemForm.getIntCondition());
+		item.setShipping(addItemForm.getIntShipping());
 		Integer id = editItemService.edit(item);
 		return "redirect:/showDetail/detail?id=" + id;
 	}

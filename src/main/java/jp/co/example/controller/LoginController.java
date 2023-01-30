@@ -44,6 +44,6 @@ public class LoginController {
 	 */
 	@RequestMapping("/")
 	public String login() {
-		return "/showList/";
+		return "/showList/top";
 	}
 }

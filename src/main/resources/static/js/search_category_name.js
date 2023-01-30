@@ -1,9 +1,8 @@
 'use strict';
-console.log("検索のjsまできたよ");
 
 // 大カテゴリ情報処理
 $("#bigCategory").change(function() {
-	console.log("bigCategoryが押された");
+	$("#middleCategory option:nth-child(n+2)").remove();
 	let token = $("meta[name='_csrf']").attr("content");
 	let header = $("meta[name='_csrf_header']").attr("content");
 
@@ -12,7 +11,8 @@ $("#bigCategory").change(function() {
 	});
 	//入力値をセット----①
 	let param = {
-		id: $("#bigCategory option:selected").val(),
+		path: $("#bigCategory option:selected").val(),
+		depth: 2,
 	}
 	//大カテゴリコードを送信URL
 	let send_url = "/addItem/findChildCategory";　//----コントローラーのパス
@@ -24,26 +24,26 @@ $("#bigCategory").change(function() {
 		data: JSON.stringify(param),
 		dataType: "json",
 		success: function(res) {   //----③
-			let middleCategoryList = [];
-			middleCategoryList.push("<option value=" + "" + ">"
-				+ "-- childCategory --" + "</option>");
+
 			for (let i = 0; i < res.length; i++) {
-				let middleCategory = "<option value=" + res[i].id + ">"
-					+ res[i].name + "</option>";
-				middleCategoryList.push(middleCategory);
+				let op = document.createElement("option");
+				op.value = res[i].name;
+				op.text = res[i].name;
+				document.getElementById("middleCategory").append(op);
 			}
-			$("#middleCategory").html(middleCategoryList);
 		}
 	});
 });
 
 // 中カテゴリ情報処理
 $("#middleCategory").change(function() {
+	$("#smallCategory option:nth-child(n+2)").remove();
 	//入力値をセット----①
 	let param = {
-		id: $("#middleCategory").val(),
+		path: $("#bigCategory option:selected").val() + "/" + $("#middleCategory option:selected").val(),
+		depth: 3,
 	}
-	//県コードを送信URL
+	//データの送信先
 	let send_url = "/addItem/findChildCategory";　//----②
 	$.ajax({
 		url: send_url,
@@ -53,15 +53,14 @@ $("#middleCategory").change(function() {
 		data: JSON.stringify(param),
 		dataType: "json",
 		success: function(res) {   //----③
-			let smallCategoryList = [];
-			smallCategoryList.push("<option value=" + "" + ">"
-				+ "-- grandChild --" + "</option>");
+			//smallCategoryList.push("<option value=" + "" + ">"
+			//	+ "-- grandChild --" + "</option>");
 			for (let i = 0; i < res.length; i++) {
-				let smallCategory = "<option value=" + res[i].id + ">"
-					+ res[i].name + "</option>";
-				smallCategoryList.push(smallCategory);
+				let op = document.createElement("option");
+				op.value = res[i].name;
+				op.text = res[i].name;
+				document.getElementById("smallCategory").append(op);
 			}
-			$("#smallCategory").html(smallCategoryList);
 		}
 	});
 });

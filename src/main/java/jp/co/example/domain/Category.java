@@ -1,39 +1,28 @@
 package jp.co.example.domain;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
 /**
- * categoryテーブルの情報を表すドメイン.
+ * Categoryテーブルを表すドメイン.
  * 
  * @author kumagaimayu
  *
  */
-@JsonPropertyOrder({ "id", "parent", "name", "name_all" })
 public class Category {
 
-	/** ID */
-	private Integer id;
-	/** 親カテゴリID */
-	private Integer parent;
+	/** カテゴリID */
+	private int categoryId;
 	/** カテゴリ名 */
 	private String name;
-	/** 全てのカテゴリ名 */
-	private String name_all;
+	/** パス */
+	private String path;
+	/** 深さ */
+	private int depth;
 
-	public Integer getId() {
-		return id;
+	public int getCategoryId() {
+		return categoryId;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
-
-	public Integer getParent() {
-		return parent;
-	}
-
-	public void setParent(Integer parent) {
-		this.parent = parent;
+	public void setCategoryId(int categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public String getName() {
@@ -44,16 +33,25 @@ public class Category {
 		this.name = name;
 	}
 
-	public String getName_all() {
-		return name_all;
+	public String getPath() {
+		return path;
 	}
 
-	public void setName_all(String name_all) {
-		this.name_all = name_all;
+	public void setPath(String path) {
+		this.path = path;
+	}
+
+	public int getDepth() {
+		return depth;
+	}
+
+	public void setDepth(int depth) {
+		this.depth = depth;
 	}
 
 	@Override
 	public String toString() {
-		return "Category [id=" + id + ", parent=" + parent + ", name=" + name + ", name_all=" + name_all + "]";
+		return "Category [categoryId=" + categoryId + ", name=" + name + ", path=" + path + ", depth=" + depth + "]";
 	}
+
 }
