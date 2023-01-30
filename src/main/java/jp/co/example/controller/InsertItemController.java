@@ -18,14 +18,19 @@ import jp.co.example.service.InsertItemService;
 @Controller
 @RequestMapping("/")
 public class InsertItemController {
-	
+
 	@Autowired
 	private InsertItemService insertItemService;
-	
+
+	/**
+	 * 商品情報の挿入.
+	 * 
+	 * @return 完了ページ
+	 */
 	@RequestMapping("/insertItem")
 	public String insertItem() {
 		List<Item> itemList = insertItemService.findItemInfo();
-		for(Item item : itemList) {
+		for (Item item : itemList) {
 			insertItemService.insertItem(item);
 		}
 		return "index";

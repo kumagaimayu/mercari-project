@@ -46,5 +46,4 @@ public class InsertCategoryService {
 		Integer category_id = categoryRepository.insertCategory(category);
 		return category_id;
 	}
-
 }

@@ -10,12 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import jp.co.example.domain.Category1;
-import jp.co.example.domain.Original;
-import jp.co.example.repository.OriginalRepository;
 import jp.co.example.service.InsertCategoryService1;
 
 /**
- * カテゴリを挿入するコントローラ.
+ * 【改修前】カテゴリを挿入するコントローラ.
  * 
  * @author kumagaimayu
  *
