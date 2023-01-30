@@ -3,7 +3,7 @@ package jp.co.example.domain;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 /**
- * categoryテーブルの情報を表すドメイン.
+ * 【改修前】categoryテーブルの情報を表すドメイン.
  * 
  * @author kumagaimayu
  *

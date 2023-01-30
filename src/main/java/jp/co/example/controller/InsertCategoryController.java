@@ -71,35 +71,22 @@ public class InsertCategoryController {
 			for (String middleCategoryName : middleNameList) {
 				Category middleCategory = new Category();
 				middleCategory.setName(middleCategoryName);
-				// インサートした際にIDが返ってくるため小カテゴリのParentにセット
-				Integer smallParentId = insertCategoryService.insertCategory(middleCategory);
 				// 全ての配列が格納されているリストを回す
 				for (String[] categoryNameArray : categoryNameArrayList) {
-				// pathをセット
-				middleCategory.setPath(bigCategoryName + "/" + middleCategoryName);
-				middleCategory.setDepth(2);
-				insertCategoryService.insertCategory(middleCategory);
-				for (String[] categoryNameArray : categoryNameArrayList) {
+					// pathをセット
+					middleCategory.setPath(bigCategoryName + "/" + middleCategoryName);
+					middleCategory.setDepth(2);
+					insertCategoryService.insertCategory(middleCategory);
+
 					// categoryNameArrayから1番目と2番目を取得、1番目が同じ場合かつ2番目が違うやつを実行.
 					if (categoryNameArray[1].equals(middleCategoryName)
 							&& categoryNameArray[0].equals(bigCategoryName)) {
 						// 小カテゴリをインスタンス化
 						Category smallCategory = new Category();
-<<<<<<< HEAD
-						// 必要情報をセット
-						smallCategory.setName(categoryNameArray[2]);
-						smallCategory.setParent(smallParentId);
-						/// 区切りの文字列を取得
-						String smallSetNameAll = bigCategoryName + "/" + middleCategory.getName() + "/"
-								+ smallCategory.getName();
-						smallCategory.setName_all(smallSetNameAll);
-						// 小カテゴリをインサート
-=======
 						smallCategory.setName(categoryNameArray[2]);
 						smallCategory.setDepth(3);
 						smallCategory
 								.setPath(bigCategoryName + "/" + middleCategoryName + "/" + smallCategory.getName());
->>>>>>> develop
 						insertCategoryService.insertCategory(smallCategory);
 					}
 				}

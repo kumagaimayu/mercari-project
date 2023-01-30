@@ -30,6 +30,11 @@ public class OriginalController {
 	@Autowired
 	private OriginalInsertService originalInsertService;
 
+	/**
+	 * tsvファイルから情報を挿入.
+	 * @return 処理完了ページ
+	 * @throws IOException
+	 */
 	@RequestMapping("/readTsv")
 	public String readTsv() throws IOException {
 

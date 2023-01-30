@@ -3,8 +3,6 @@ package jp.co.example.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import jp.co.example.common.Condition;
 import jp.co.example.domain.Category;
 import jp.co.example.domain.Item;
 import jp.co.example.repository.CategoryRepository;
@@ -37,6 +35,7 @@ public class EditItemService {
 		return id;
 	}
 
+	// コメントアウト部分はリファクタリング前
 	/**
 	 * name_allからsmallCategoryのIDを取得.
 	 * 
@@ -81,9 +80,14 @@ public class EditItemService {
 		return item;
 	}
 
+	/**
+	 * カテゴリIDからカテゴリを検索
+	 * 
+	 * @param id カテゴリID
+	 * @return カテゴリ
+	 */
 	public Category findCategoryById(Integer id) {
 		Category category = categoryRepository.findById(id);
 		return category;
-
 	}
 }
