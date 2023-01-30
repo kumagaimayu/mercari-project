@@ -16,7 +16,6 @@ import jp.co.example.form.LoginForm;
 @RequestMapping("/login")
 public class LoginController {
 
-
 	/**
 	 * ログイン画面表示.
 	 * 

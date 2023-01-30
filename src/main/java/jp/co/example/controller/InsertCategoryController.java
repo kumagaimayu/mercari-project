@@ -4,11 +4,9 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import jp.co.example.domain.Category;
 import jp.co.example.service.InsertCategoryService;
 
@@ -71,9 +69,12 @@ public class InsertCategoryController {
 			}
 			// 中カテゴリの名前リスト（重複がない）を回す
 			for (String middleCategoryName : middleNameList) {
-				// 中カテゴリをインスタンス化
 				Category middleCategory = new Category();
 				middleCategory.setName(middleCategoryName);
+				// インサートした際にIDが返ってくるため小カテゴリのParentにセット
+				Integer smallParentId = insertCategoryService.insertCategory(middleCategory);
+				// 全ての配列が格納されているリストを回す
+				for (String[] categoryNameArray : categoryNameArrayList) {
 				// pathをセット
 				middleCategory.setPath(bigCategoryName + "/" + middleCategoryName);
 				middleCategory.setDepth(2);
@@ -84,10 +85,21 @@ public class InsertCategoryController {
 							&& categoryNameArray[0].equals(bigCategoryName)) {
 						// 小カテゴリをインスタンス化
 						Category smallCategory = new Category();
+<<<<<<< HEAD
+						// 必要情報をセット
+						smallCategory.setName(categoryNameArray[2]);
+						smallCategory.setParent(smallParentId);
+						/// 区切りの文字列を取得
+						String smallSetNameAll = bigCategoryName + "/" + middleCategory.getName() + "/"
+								+ smallCategory.getName();
+						smallCategory.setName_all(smallSetNameAll);
+						// 小カテゴリをインサート
+=======
 						smallCategory.setName(categoryNameArray[2]);
 						smallCategory.setDepth(3);
 						smallCategory
 								.setPath(bigCategoryName + "/" + middleCategoryName + "/" + smallCategory.getName());
+>>>>>>> develop
 						insertCategoryService.insertCategory(smallCategory);
 					}
 				}

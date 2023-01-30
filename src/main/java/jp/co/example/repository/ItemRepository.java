@@ -148,8 +148,15 @@ public class ItemRepository {
 		return item.getId();
 	}
 
+	/**
+	 * 名前、カテゴリ、ブランドから検索する.
+	 * 
+	 * @param name 商品名
+	 * @param category　カテゴリ
+	 * @param brand　ブランド
+	 * @return
+	 */
 	public List<ShowItem> findByNameCategoryBrand(String name, String categoryPath, String brand, Integer offset) {
-		System.out.println("Repositoryだよ" + categoryPath);
 		String sql = "select count(i.id) over() as count,i.id, i.name, i.condition, i.category, i.brand, i.price, i.shipping, i.description, c.path as category from items i left outer join category c on i.category = c.category_id where i.name like :name and c.path like :categoryPath and i.brand like :brand group by i.id,c.path,i.name, i.brand order by i.id desc limit 30 offset :offset;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%" + name + "%")
 				.addValue("categoryPath", categoryPath + "%").addValue("brand", "%" + brand + "%")
