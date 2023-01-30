@@ -137,7 +137,6 @@ public class ItemRepository {
 	 * @return
 	 */
 	public List<ShowItem> findByNameCategoryBrand(String name, Integer category, String brand, Integer offset) {
-		System.out.println("名前" + name + category + brand);
 		String sql = "select count(i.id) over() as count,i.id, i.name, i.condition, i.category, i.brand, i.price, i.shipping, i.description,c.name_all as category from items i left outer join category c on i.category = c.id where c.parent =:category and i.name ilike :name and i.brand ilike :brand order by id desc limit 30 offset :offset";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("name", "%" + name + "%")
 				.addValue("category", category).addValue("brand", "%" + brand + "%").addValue("offset", offset);

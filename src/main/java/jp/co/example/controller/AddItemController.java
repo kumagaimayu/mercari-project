@@ -11,7 +11,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import jp.co.example.domain.Category;
 import jp.co.example.domain.Item;
 import jp.co.example.form.AddItemForm;

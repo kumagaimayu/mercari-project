@@ -64,5 +64,4 @@ public class SearchForm {
 		return "SearchForm [name=" + name + ", bigCategory=" + bigCategory + ", middleCategory=" + middleCategory
 				+ ", smallCategory=" + smallCategory + ", brand=" + brand + "]";
 	}
-
 }

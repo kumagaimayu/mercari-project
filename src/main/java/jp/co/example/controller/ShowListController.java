@@ -81,8 +81,6 @@ public class ShowListController {
 		if (itemList.isEmpty()) {
 			// 検索結果が0件の時に全件表示、エラー文表示
 			model.addAttribute("result", "該当する商品がありません。");
-			System.out.println("List0件");
-			System.out.println(offset);
 			itemList = showListService.showList(offset);
 		}
 
