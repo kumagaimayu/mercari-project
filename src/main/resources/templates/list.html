@@ -77,12 +77,18 @@
 					<select class="form-control" th:field="*{bigCategory}">
 						<option value="">-- parentCategory --</option>
 						<option th:each="bigCategory : ${bigCategoryList}"
-							th:value="${bigCategory.id}" th:text="${bigCategory.name}">-
+							th:value="${bigCategory.name}" th:text="${bigCategory.name}">-
 							-</option>
 					</select> <select class="form-control" th:field="*{middleCategory}">
 						<option value="">-- childCategory --</option>
+						<option th:each="middleCategory : ${middleCategoryList}"
+							th:value="${middleCategory.name}"
+							th:text="${middleCategory.name}">- -</option>
 					</select> <select class="form-control" th:field="*{smallCategory}">
 						<option value="">-- grandChild --</option>
+						<option th:each="smallCategory : ${smallCategoryList}"
+							th:value="${smallCategory.name}" th:text="${smallCategory.name}">-
+							-</option>
 					</select>
 				</div>
 				<div class="form-group">
@@ -133,7 +139,7 @@
 							th:href="">Electronics</a> / <a href="">Computers &amp;
 								Tablets</a> / <a href="">Components &amp; Parts</a></td>
 						<td class="item-brand" th:text="${item.brand}"><a href="">Razer</a></td>
-						<td class="item-condition" th:text="${item.condition}">3</td>
+						<td class="item-condition" th:text="${T(jp.co.example.common.Condition).getByValue(item.condition).getKey()}"></td>
 					</tr>
 				</tbody>
 			</table>

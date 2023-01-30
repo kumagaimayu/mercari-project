@@ -26,6 +26,7 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
+
 <title>Rakus Items</title>
 </head>
 <body>
@@ -38,7 +39,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" th:href="@{/showList/}">Rakus Items</a>
+			<a class="navbar-brand" th:href="@{/showList/top}">Rakus Items</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
@@ -55,54 +56,26 @@
 	</nav>
 
 	<!-- details -->
-	<div class="container">
-		<a type="submit" class="btn btn-default" th:href="@{/showList/}"><i
-			class="fa fa-reply"></i> back</a>
-		<h2>Details</h2>
-		<div id="details">
-			<table class="table table-hover">
-				<tbody>
-					<tr>
-						<th>ID</th>
-						<td th:text="${item.id}">1</td>
-					</tr>
-					<tr>
-						<th>name</th>
-						<td th:text="${item.name}">Razer BlackWidow Chroma Keyboard</td>
-					</tr>
-					<tr>
-						<th>price</th>
-						<td th:text="${item.price}">$52.0</td>
-					</tr>
-					<tr>
-						<th>category</th>
-						<td th:text="${item.category}">Electronics / Computers &amp;
-							Tablets / Components &amp; Parts</td>
-					</tr>
-					<tr>
-						<th>brand</th>
-						<td th:text="${item.brand}">Razer</td>
-					</tr>
-					<tr>
-						<th>condition</th>
-						<td th:text="${T(jp.co.example.common.Condition).getByValue(item.condition).getKey()}"
-						>3</td>
-					</tr>
-					<tr>
-						<th>description</th>
-						<td th:text="${item.description}">I realized his pants are on
-							backwards after the picture. They were very dirty so I hand
-							washed them. He has a stuffed body and painted porcelain head,
-							hands and feet. Back before clowns were too scary. 9"" tall. No
-							chips or cracks but minor paint loss in a few places. Clown
-							Circus Doll Collectible</td>
-					</tr>
-				</tbody>
-			</table>
-			<a type="submit" class="btn btn-default"
-				th:href="@{/editItem/toEditItem?id=}+${item.id}"><i
-				class="fa fa-pencil-square-o"></i>&nbsp;edit</a>
-		</div>
+	<div id="input-main" class="container">
+		<!-- 戻るボタン -->
+		<a type="submit" class="btn btn-default" th:href="@{/showList/top}"><i
+			class="fa fa-reply"></i>Back Home</a>
+		<h2>We are sorry.</h2><br>
+		<h2>Under maintenance.</h2><br>
+		<h2>Please re-operate after a while.</h2>
+
 	</div>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+		integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+	<script th:src="@{/js/category_name.js}"></script>
 </body>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
 </html>

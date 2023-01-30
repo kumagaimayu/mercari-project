@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.example.domain.Category;
 import jp.co.example.domain.LoginUser;
 import jp.co.example.domain.ShowItem;
+import jp.co.example.form.AddItemForm;
 import jp.co.example.form.SearchForm;
 import jp.co.example.service.AddItemService;
 import jp.co.example.service.SearchService;
@@ -56,6 +57,7 @@ public class ShowListController {
 	public String searchByNameCategoryBrand(@ModelAttribute("searchForm") SearchForm searchForm, Model model,
 			Integer page, @AuthenticationPrincipal LoginUser loginUser) {
 		List<ShowItem> itemList = new ArrayList<>();
+		System.out.println("上の方" + searchForm);
 
 		// Goが押された時
 		if (searchForm.getName() == null && searchForm.getBigCategory() == null
@@ -77,7 +79,26 @@ public class ShowListController {
 		List<Category> bigCategoryList = addItemService.findBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
 
-		// List
+		// もし中カテゴリに値が入っていたら
+		System.out.println("ShowListController" + searchForm);
+//		if (searchForm != null) {
+
+		// || !searchForm.getMiddleCategory().equals("")
+
+		if (searchForm.getMiddleCategory() == null) {
+			List<Category> middleCategoryList = addItemService.findChildCategory(searchForm.getBigCategory(), 2);
+			List<Category> smallCategoryList = addItemService
+					.findChildCategory(searchForm.getBigCategory() + "/" + searchForm.getMiddleCategory(), 3);
+			model.addAttribute("middleCategoryList", middleCategoryList);
+			model.addAttribute("smallCategoryList", smallCategoryList);
+
+			// もし大カテゴリに値が入っていたら
+//		} else if (!searchForm.getBigCategory().equals("")) {
+		} else if (searchForm.getBigCategory() != null) {
+			List<Category> middleCategoryList = addItemService.findChildCategory(searchForm.getBigCategory(), 2);
+			model.addAttribute("middleCategoryList", middleCategoryList);
+		}
+
 		if (itemList.isEmpty()) {
 			// 検索結果が0件の時に全件表示、エラー文表示
 			model.addAttribute("result", "該当する商品がありません。");
@@ -90,21 +111,20 @@ public class ShowListController {
 		model.addAttribute("page", page);
 		model.addAttribute("itemList", itemList);
 		session.setAttribute("searchForm", searchForm);
-
 		return "list";
 	}
 
 	/**
 	 * 検索情報などを保持しない商品一覧の表示を行う.
-	 * @param model モデル
-	 * @param page ページ
-	 * @param loginUser  ユーザーのログイン情報
+	 * 
+	 * @param model     モデル
+	 * @param page      ページ
+	 * @param loginUser ユーザーのログイン情報
 	 * @return 商品一覧画面
 	 */
 	@RequestMapping("/top")
 	public String top(Model model, Integer page, @AuthenticationPrincipal LoginUser loginUser) {
 		List<ShowItem> itemList = new ArrayList<>();
-
 		Integer offset = 0;
 		if (page == null) {
 			page = 1;
@@ -113,10 +133,12 @@ public class ShowListController {
 			offset = (page - 1) * 30;
 			itemList = showListService.showList(offset);
 		}
+
+		// Formをインスタンス化
+		session.setAttribute("searchForm", new SearchForm());
 		// 大カテゴリ表示用
 		List<Category> bigCategoryList = addItemService.findBigCategory();
 		model.addAttribute("bigCategoryList", bigCategoryList);
-		
 		int count = itemList.get(0).getCount();
 		int pageCount = (count - 1) / 30 + 1;
 		model.addAttribute("pageCount", pageCount);

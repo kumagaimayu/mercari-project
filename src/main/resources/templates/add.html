@@ -71,9 +71,9 @@
 				<div class="col-sm-8">
 					<input type="text" class="form-control" id="inputName" name="name"
 						th:field="*{name}" />
-				<div class="col-sm-8">
-					<span class="text-danger" th:errors="*{name}"></span>
-				</div>
+					<div class="col-sm-8">
+						<span class="text-danger" th:errors="*{name}"></span>
+					</div>
 				</div>
 			</div>
 			<!-- price -->
@@ -82,19 +82,19 @@
 				<div class="col-sm-8">
 					<input type="text" class="form-control" id="price" name="price"
 						th:field="*{price}" />
-				<div class="col-sm-8">
-					<span class="text-danger" th:errors="*{price}"></span>
-				</div>
+					<div class="col-sm-8">
+						<span class="text-danger" th:errors="*{price}"></span>
+					</div>
 				</div>
 			</div>
 			<!-- category -->
 			<div class="form-group">
 				<label for="category" class="col-sm-2 control-label">category</label>
 				<div class="col-sm-8">
-					<select class="form-control" th:field="*{bigCategoryList}">
+					<select class="form-control" id="bigCategoryList">
 						<option value="">-- parentCategory --</option>
 						<option th:each="bigCategory : ${bigCategoryList}"
-							th:value="${bigCategory.id}" th:text="${bigCategory.name}">parentCategory1</option>
+							th:value="${bigCategory.name}" th:text="${bigCategory.name}">parentCategory1</option>
 					</select>
 				</div>
 			</div>
@@ -102,7 +102,7 @@
 			<div class="form-group">
 				<label for="category" class="col-sm-2 control-label"></label>
 				<div class="col-sm-8">
-					<select class="form-control" th:field="*{middleCategoryList}">
+					<select class="form-control" id="middleCategoryList">
 						<option value="">-- childCategory --</option>
 					</select>
 				</div>
@@ -116,12 +116,6 @@
 					</select>
 				</div>
 			</div>
-<!-- 			<div class="form-group">
-				<label for="category" class="col-sm-2 control-label"></label>
-				<div class="col-sm-8">
-					<span class="text-danger" th:errors="*{category}"></span>
-				</div>
-			</div> -->
 			<!-- brand -->
 			<div class="form-group">
 				<label for="brand" class="col-sm-2 control-label">brand</label>
@@ -134,19 +128,21 @@
 			<div class="form-group">
 				<label for="condition" class="col-sm-2 control-label">condition</label>
 				<div class="col-sm-8">
-					<label for="condition1" class="radio-inline"> <input
-						type="radio" name="conditionId" id="condition1" th:value="1" /> 1
-					</label> <label for="condition2" class="radio-inline"> <input
-						type="radio" name="conditionId" id="condition2" th:value="2" /> 2
-					</label> <label for="condition3" class="radio-inline"> <input
-						type="radio" name="conditionId" id="condition3" th:value="3" /> 3
+					<label
+						th:each="condition : ${T(jp.co.example.common.Condition).values()}"
+						class="radio-inline"> <input type="radio"
+						th:field="*{condition}" th:value="${condition.getValue()}"
+						th:text="${condition.getKey()}" />
 					</label>
 				</div>
 			</div>
+			<!-- shipping -->
 			<div class="form-group">
-				<label for="category" class="col-sm-2 control-label"></label>
+				<label for="description" class="col-sm-2 control-label">shipping</label>
 				<div class="col-sm-8">
-					<span class="text-danger" th:errors="*{conditionId}"></span>
+					<input name="shipping" id="shipping" class="form-control"
+						th:field="*{shipping}"> <span class="text-danger"
+						th:errors="*{shipping}"></span>
 				</div>
 			</div>
 			<!-- description -->
@@ -179,6 +175,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
 	<script th:src="@{/js/category_name.js}"></script>
 </body>
-<meta name="_csrf" th:content="${_csrf.token}" />
-<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<meta th:if="${_csrf}" name="_csrf" th:content="${_csrf.token}" />
+<meta th:if="${_csrf}" name="_csrf_header"
+	th:content="${_csrf.headerName}" />
 </html>

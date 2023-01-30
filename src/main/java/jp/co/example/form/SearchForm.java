@@ -11,13 +11,20 @@ public class SearchForm {
 	/** 商品名 */
 	private String name;
 	/** 大カテゴリ */
-	private Integer bigCategory;
+	private String bigCategory;
 	/** 中カテゴリ */
-	private Integer middleCategory;
+	private String middleCategory;
 	/** 小カテゴリ */
-	private Integer smallCategory;
+	private String smallCategory;
 	/** ブランド */
 	private String brand;
+
+	/**
+	 * @return Integer型のsmallCategory
+	 */
+	public Integer getIntSmallCategory() {
+		return Integer.parseInt(smallCategory);
+	}
 
 	public String getName() {
 		return name;
@@ -27,27 +34,27 @@ public class SearchForm {
 		this.name = name;
 	}
 
-	public Integer getBigCategory() {
+	public String getBigCategory() {
 		return bigCategory;
 	}
 
-	public void setBigCategory(Integer bigCategory) {
+	public void setBigCategory(String bigCategory) {
 		this.bigCategory = bigCategory;
 	}
 
-	public Integer getMiddleCategory() {
+	public String getMiddleCategory() {
 		return middleCategory;
 	}
 
-	public void setMiddleCategory(Integer middleCategory) {
+	public void setMiddleCategory(String middleCategory) {
 		this.middleCategory = middleCategory;
 	}
 
-	public Integer getSmallCategory() {
+	public String getSmallCategory() {
 		return smallCategory;
 	}
 
-	public void setSmallCategory(Integer smallCategory) {
+	public void setSmallCategory(String smallCategory) {
 		this.smallCategory = smallCategory;
 	}
 

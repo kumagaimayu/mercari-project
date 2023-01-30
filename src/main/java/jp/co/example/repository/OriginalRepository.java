@@ -3,7 +3,6 @@ package jp.co.example.repository;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -40,7 +39,7 @@ public class OriginalRepository {
 	};
 
 	/**
-	 * original情報を挿入する.
+	 * originalテーブルにデータを挿入する.
 	 * 
 	 * @param original
 	 */
@@ -51,9 +50,9 @@ public class OriginalRepository {
 	}
 
 	/**
-	 * categoryの名前を取得する.
+	 * category_nameを重複なく取得する.
 	 * 
-	 * @return categoryの名前のリスト
+	 * @return category_nameのString型のリスト
 	 */
 	public List<String> findCategoryName() {
 		String sql = "select category_name from original group by category_name;";

@@ -28,7 +28,7 @@ public class SearchService {
 	 * 商品を検索します.
 	 * 
 	 * @param searchForm 検索フォーム
-	 * @param offset ページングに使用する商品の順番
+	 * @param offset     ページングに使用する商品の順番
 	 * @return 商品リスト
 	 */
 	public List<ShowItem> search(SearchForm searchForm, Integer offset) {
@@ -48,28 +48,24 @@ public class SearchService {
 			searchForm.setBrand("");
 		}
 
-		// Categoryがnull
-		if (searchForm.getBigCategory() == null) {
-			itemList = itemRepository.findByNameBrand(searchForm.getName(), searchForm.getBrand(), offset);
-			return itemList;
-		}
-
+		// パスを変数宣言.
+		String path = "";
 		// Categoryが大まで
-		if (searchForm.getMiddleCategory() == null) {
-			itemList = itemRepository.findByBigCategory(searchForm.getName(), searchForm.getBigCategory(),
-					searchForm.getBrand(), offset);
-			return itemList;
+		if (searchForm.getBigCategory() == null || searchForm.getBigCategory().equals("")) {
+			// 必要処理なし
+			// Categoryが大まで
+		} else if (searchForm.getMiddleCategory() == null || searchForm.getMiddleCategory().equals("")) {
+			// パスに大カテゴリ名を入れる
+			path = searchForm.getBigCategory();
+			// Category中まで
+		} else if (searchForm.getSmallCategory() == null || searchForm.getSmallCategory().equals("")) {
+			path = searchForm.getBigCategory() + "/" + searchForm.getMiddleCategory();
+		} else {
+			path = searchForm.getBigCategory() + "/" + searchForm.getMiddleCategory() + "/"
+					+ searchForm.getSmallCategory();
 		}
-		// Category中まで
-		if (searchForm.getSmallCategory() == null) {
-			itemList = itemRepository.findByMiddleCategory(searchForm.getName(), searchForm.getMiddleCategory(),
-					searchForm.getBrand(), offset);
-			return itemList;
-		}
-
-		// 全ての項目がnullじゃない場合（Categoryも小まで埋まっている）
-		itemList = itemRepository.findByNameCategoryBrand(searchForm.getName(), searchForm.getSmallCategory(),
-				searchForm.getBrand(), offset);
+		// 全ての項目が""の時は下記に直接入る
+		itemList = itemRepository.findByNameCategoryBrand(searchForm.getName(), path, searchForm.getBrand(), offset);
 		return itemList;
 	}
 }

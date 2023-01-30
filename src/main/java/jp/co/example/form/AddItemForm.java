@@ -1,7 +1,6 @@
 package jp.co.example.form;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 /**
  * 商品を追加する際に使用するフォーム.
@@ -17,23 +16,19 @@ public class AddItemForm {
 	@NotBlank(message = "商品名は必須です。")
 	private String name;
 	/** 状態 */
-	@NotNull(message = "コンディションを選択してください。")
-	private Integer conditionId;
+	@NotBlank(message = "コンディションを選択してください。")
+	private String condition;
 	/** カテゴリ */
-	private Integer category;
+	private String category;
 	/** ブランド */
 	private String brand;
 	/** 価格 */
 	@NotBlank(message = "値段は必須です。")
 	private String price;
 	/** 発送 */
-	private Integer shipping;
+	private String shipping;
 	/** 説明 */
 	private String description;
-	/** 大カテゴリの値 */
-	private String bigCategoryList;
-	/** 中カテゴリの値 */
-	private String middleCategoryList;
 
 	/**
 	 * @return Integer型ID
@@ -47,6 +42,27 @@ public class AddItemForm {
 	 */
 	public double getDoublePrice() {
 		return Double.parseDouble(price);
+	}
+
+	/**
+	 * @return Integer型のカテゴリ
+	 */
+	public Integer getIntCategory() {
+		return Integer.parseInt(category);
+	}
+
+	/**
+	 * @return Integer型の発送時間
+	 */
+	public Integer getIntShipping() {
+		return Integer.parseInt(shipping);
+	}
+
+	/**
+	 * @return Integer型の状態
+	 */
+	public Integer getIntCondition() {
+		return Integer.parseInt(condition);
 	}
 
 	public String getId() {
@@ -65,19 +81,19 @@ public class AddItemForm {
 		this.name = name;
 	}
 
-	public Integer getConditionId() {
-		return conditionId;
+	public String getCondition() {
+		return condition;
 	}
 
-	public void setConditionId(Integer conditionId) {
-		this.conditionId = conditionId;
+	public void setCondition(String condition) {
+		this.condition = condition;
 	}
 
-	public Integer getCategory() {
+	public String getCategory() {
 		return category;
 	}
 
-	public void setCategory(Integer category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 
@@ -97,11 +113,11 @@ public class AddItemForm {
 		this.price = price;
 	}
 
-	public Integer getShipping() {
+	public String getShipping() {
 		return shipping;
 	}
 
-	public void setShipping(Integer shipping) {
+	public void setShipping(String shipping) {
 		this.shipping = shipping;
 	}
 
@@ -115,24 +131,8 @@ public class AddItemForm {
 
 	@Override
 	public String toString() {
-		return "AddItemForm [id=" + id + ", name=" + name + ", conditionId=" + conditionId + ", category=" + category
+		return "AddItemForm [id=" + id + ", name=" + name + ", condition=" + condition + ", category=" + category
 				+ ", brand=" + brand + ", price=" + price + ", shipping=" + shipping + ", description=" + description
 				+ "]";
-	}
-
-	public String getBigCategoryList() {
-		return bigCategoryList;
-	}
-
-	public void setBigCategoryList(String bigCategoryList) {
-		this.bigCategoryList = bigCategoryList;
-	}
-
-	public String getMiddleCategoryList() {
-		return middleCategoryList;
-	}
-
-	public void setMiddleCategoryList(String middleCategoryList) {
-		this.middleCategoryList = middleCategoryList;
 	}
 }

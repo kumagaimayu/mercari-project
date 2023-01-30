@@ -12,7 +12,7 @@ public class Item {
 	/** 商品名 */
 	private String name;
 	/** 状態 */
-	private Integer conditionId;
+	private Integer condition;
 	/** カテゴリ */
 	private Integer category;
 	/** ブランド */
@@ -40,12 +40,12 @@ public class Item {
 		this.name = name;
 	}
 
-	public Integer getConditionId() {
-		return conditionId;
+	public Integer getCondition() {
+		return condition;
 	}
 
-	public void setConditionId(Integer conditionId) {
-		this.conditionId = conditionId;
+	public void setCondition(Integer condition) {
+		this.condition = condition;
 	}
 
 	public Integer getCategory() {
@@ -90,8 +90,7 @@ public class Item {
 
 	@Override
 	public String toString() {
-		return "Item [id=" + id + ", name=" + name + ", conditionId=" + conditionId + ", category=" + category
-				+ ", brand=" + brand + ", price=" + price + ", shipping=" + shipping + ", description=" + description
-				+ "]";
+		return "Item [id=" + id + ", name=" + name + ", condition=" + condition + ", category=" + category + ", brand="
+				+ brand + ", price=" + price + ", shipping=" + shipping + ", description=" + description + "]";
 	}
 }
