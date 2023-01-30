@@ -85,7 +85,8 @@
 					</tr>
 					<tr>
 						<th>condition</th>
-						<td th:text="${item.condition}">3</td>
+						<td th:text="${T(jp.co.example.common.Condition).getByValue(item.condition).getKey()}"
+						>3</td>
 					</tr>
 					<tr>
 						<th>description</th>

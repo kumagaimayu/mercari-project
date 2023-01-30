@@ -33,18 +33,19 @@ public class AddItemService {
 	 * @return 大カテゴリリスト
 	 */
 	public List<Category> findBigCategory() {
-		List<Category> bigCategoryList = categoryRepository.findBigCategoryName();
+		List<Category> bigCategoryList = categoryRepository.findBigCategory();
 		return bigCategoryList;
 	}
 
 	/**
-	 * 親のIDから該当するカテゴリーのリストを取得.
+	 * カテゴリ名と深さからカテゴリのリストを取得.
 	 * 
-	 * @param parentId 親のID
-	 * @return　カテゴリのリスト
+	 * @param name カテゴリ名
+	 * @param depth 深さ
+	 * @return カテゴリのリスト
 	 */
-	public List<Category> findChildCategory(Integer parentId) {
-		List<Category> childCategoryList = categoryRepository.findChildCategoryName(parentId);
+	public List<Category> findChildCategory(String path, Integer depth) {
+		List<Category> childCategoryList = categoryRepository.findChildCategory(path, depth);
 		return childCategoryList;
 	}
 

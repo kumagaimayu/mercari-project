@@ -13,7 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import jp.co.example.domain.Item;
-import jp.co.example.repository.CategoryRepository;
+import jp.co.example.repository.CategoryRepository1;
 import jp.co.example.repository.ItemRepository;
 
 @SpringBootTest
@@ -26,7 +26,7 @@ class AddItemServiceTest {
 	private ItemRepository itemRepository;
 
 	@MockBean
-	private CategoryRepository categoryRepository;
+	private CategoryRepository1 categoryRepository;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {

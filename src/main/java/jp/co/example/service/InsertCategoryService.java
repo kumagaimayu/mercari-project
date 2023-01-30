@@ -11,7 +11,7 @@ import jp.co.example.repository.CategoryRepository;
 import jp.co.example.repository.OriginalRepository;
 
 /**
- * カテゴリを振り分けるサービス .
+ * OriginalテーブルからCategoryを振り分けるサービス.
  * 
  * @author kumagaimayu
  *
@@ -43,7 +43,8 @@ public class InsertCategoryService {
 	 * @return ID
 	 */
 	public Integer insertCategory(Category category) {
-		Integer id = categoryRepository.insertCategory(category);
-		return id;
+		Integer category_id = categoryRepository.insertCategory(category);
+		return category_id;
 	}
+
 }
