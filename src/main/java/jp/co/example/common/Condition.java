@@ -7,7 +7,7 @@ package jp.co.example.common;
  *
  */
 public enum Condition {
-	MINT("mint", 1), NEAR＿MINT("near mint", 2), EXCELLENT("excellent", 3), VERY_GOOD("very good", 4), GOOD("good", 5);
+	MINT("mint", 1), NEAR_MINT("near mint", 2), EXCELLENT("excellent", 3), VERY_GOOD("very good", 4), GOOD("good", 5);
 
 	private final String key;
 	private final int value;

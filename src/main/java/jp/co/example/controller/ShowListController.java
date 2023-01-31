@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import jp.co.example.domain.Category;
 import jp.co.example.domain.LoginUser;
 import jp.co.example.domain.ShowItem;
-import jp.co.example.form.AddItemForm;
 import jp.co.example.form.SearchForm;
 import jp.co.example.service.AddItemService;
 import jp.co.example.service.SearchService;
@@ -57,7 +56,6 @@ public class ShowListController {
 	public String searchByNameCategoryBrand(@ModelAttribute("searchForm") SearchForm searchForm, Model model,
 			Integer page, @AuthenticationPrincipal LoginUser loginUser) {
 		List<ShowItem> itemList = new ArrayList<>();
-		System.out.println("上の方" + searchForm);
 
 		// Goが押された時
 		if (searchForm.getName() == null && searchForm.getBigCategory() == null
@@ -80,11 +78,6 @@ public class ShowListController {
 		model.addAttribute("bigCategoryList", bigCategoryList);
 
 		// もし中カテゴリに値が入っていたら
-		System.out.println("ShowListController" + searchForm);
-//		if (searchForm != null) {
-
-		// || !searchForm.getMiddleCategory().equals("")
-
 		if (searchForm.getMiddleCategory() == null) {
 			List<Category> middleCategoryList = addItemService.findChildCategory(searchForm.getBigCategory(), 2);
 			List<Category> smallCategoryList = addItemService
@@ -93,7 +86,6 @@ public class ShowListController {
 			model.addAttribute("smallCategoryList", smallCategoryList);
 
 			// もし大カテゴリに値が入っていたら
-//		} else if (!searchForm.getBigCategory().equals("")) {
 		} else if (searchForm.getBigCategory() != null) {
 			List<Category> middleCategoryList = addItemService.findChildCategory(searchForm.getBigCategory(), 2);
 			model.addAttribute("middleCategoryList", middleCategoryList);
