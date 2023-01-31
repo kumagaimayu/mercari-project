@@ -36,7 +36,13 @@ public class RegisterService {
 		// ハッシュ化されたパスワードが入る
 		userRepository.insert(user);
 	}
-	
+
+	/**
+	 * ユーザの1件検索.
+	 * 
+	 * @param mailAddress メールアドレス
+	 * @return ユーザ情報
+	 */
 	public User findByMail(String mailAddress) {
 		User user = userRepository.findByMail(mailAddress);
 		return user;

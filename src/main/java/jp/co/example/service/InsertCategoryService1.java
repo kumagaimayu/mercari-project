@@ -11,7 +11,7 @@ import jp.co.example.repository.CategoryRepository1;
 import jp.co.example.repository.OriginalRepository;
 
 /**
- * カテゴリを振り分けるサービス .
+ * 【改修前】カテゴリを振り分けるサービス .
  * 
  * @author kumagaimayu
  *

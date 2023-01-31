@@ -8,15 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
-import jp.co.example.common.Condition;
 import jp.co.example.domain.Category;
 import jp.co.example.domain.Item;
-import jp.co.example.domain.ShowItem;
 import jp.co.example.form.AddItemForm;
-import jp.co.example.repository.ItemRepository;
 import jp.co.example.service.AddItemService;
 import jp.co.example.service.EditItemService;
-import jp.co.example.service.ShowDetailService;
 
 /**
  * 商品情報の変更を行うコントローラ.
@@ -50,7 +46,7 @@ public class EditItemController {
 		Item item = ediItemService.findItemById(id);
 //		ShowItem item = showDetailService.findById(id);
 		model.addAttribute("item", item);
-		//コンディションの値を表示
+		// コンディションの値を表示
 		addItemForm.setCondition(item.getCondition().toString());
 		// splitして配列のListを作って
 //		String[] categoryNameArray = item.getCategory().split("/");

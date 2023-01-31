@@ -27,6 +27,5 @@ public class OriginalInsertService {
 	 */
 	public void originalInsert(Original original) {
 		originalRepository.insert(original);
-
 	}
 }
