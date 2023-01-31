@@ -61,14 +61,17 @@
 				class="fa fa-plus-square-o"></i> Add New Item</a>
 		</div>
 
-		<!-- 検索フォーム -->
+		<!-- search form -->
 		<span th:text="${result}"></span><br>
 		<div id="forms">
 			<form th:action="@{/showList/}" method="POST" class="form-inline"
 				role="form" th:object="${searchForm}">
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="item name"
-						th:field="*{name}" />
+						th:field="*{name}" list="itemList" />
+					<datalist id="itemList">
+						<option th:each="item:${itemList}" th:value="${item.name}"></option>
+					</datalist>
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
@@ -139,7 +142,8 @@
 							th:href="">Electronics</a> / <a href="">Computers &amp;
 								Tablets</a> / <a href="">Components &amp; Parts</a></td>
 						<td class="item-brand" th:text="${item.brand}"><a href="">Razer</a></td>
-						<td class="item-condition" th:text="${T(jp.co.example.common.Condition).getByValue(item.condition).getKey()}"></td>
+						<td class="item-condition"
+							th:text="${T(jp.co.example.common.Condition).getByValue(item.condition).getKey()}"></td>
 					</tr>
 				</tbody>
 			</table>
