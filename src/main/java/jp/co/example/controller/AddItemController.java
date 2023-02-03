@@ -67,7 +67,6 @@ public class AddItemController {
 			item.setCategory(addItemForm.getIntCategory());
 		}
 		item.setCondition(addItemForm.getIntCondition());
-		System.out.println("コントローラー" + item.getCategory());
 		Integer id = addItemService.addItem(item);
 		return "redirect:/showDetail/detail?id=" + id;
 	}
@@ -82,7 +81,6 @@ public class AddItemController {
 	@RequestMapping("/findChildCategory")
 	@ResponseBody
 	public List<Category> setChildSelectBox(@RequestBody Category category) {
-		System.out.println("コントローラー" + category.getPath() + category.getDepth());
 		List<Category> childList = addItemService.findChildCategory(category.getPath(), category.getDepth());
 		return childList;
 	}
