@@ -1,6 +1,7 @@
 package jp.co.example.form;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 /**
  * 商品を追加する際に使用するフォーム.
@@ -14,6 +15,7 @@ public class AddItemForm {
 	private String id;
 	/** 商品名 */
 	@NotBlank(message = "商品名は必須です。")
+	@Size(min = 2, max = 30, message = "商品名は2文字以上30文字以内で入力してください。")
 	private String name;
 	/** 状態 */
 	@NotBlank(message = "コンディションを選択してください。")
@@ -21,11 +23,15 @@ public class AddItemForm {
 	/** カテゴリ */
 	private String category;
 	/** ブランド */
+	@Size(max = 20, message = "ブランド名は20文字以内で入力してください。")
 	private String brand;
 	/** 価格 */
 	@NotBlank(message = "値段は必須です。")
+	@Size(min = 1, max = 100000, message = "値段は1~100000で入力してください。")
 	private String price;
 	/** 発送 */
+	@NotBlank(message = "発送時間は必須です。")
+	@Size(min = 1, max = 48, message = "発送時間は1~48で入力してください。")
 	private String shipping;
 	/** 説明 */
 	private String description;

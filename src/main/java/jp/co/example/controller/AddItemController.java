@@ -63,7 +63,9 @@ public class AddItemController {
 		BeanUtils.copyProperties(addItemForm, item);
 		item.setShipping(addItemForm.getIntShipping());
 		item.setPrice(addItemForm.getDoublePrice());
-		item.setCategory(addItemForm.getIntCategory());
+		if (!(addItemForm.getCategory() == null || !((addItemForm.getCategory()) == " "))) {
+			item.setCategory(addItemForm.getIntCategory());
+		}
 		item.setCondition(addItemForm.getIntCondition());
 		System.out.println("コントローラー" + item.getCategory());
 		Integer id = addItemService.addItem(item);
