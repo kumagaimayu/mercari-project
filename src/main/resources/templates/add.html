@@ -121,7 +121,8 @@
 				<label for="brand" class="col-sm-2 control-label">brand</label>
 				<div class="col-sm-8">
 					<input type="text" id="brand" class="form-control" name="brand"
-						th:field="*{brand}" />
+						th:field="*{brand}" /> <span class="text-danger"
+						th:errors="*{brand}"></span>
 				</div>
 			</div>
 			<!-- condition -->
@@ -133,7 +134,9 @@
 						class="radio-inline"> <input type="radio"
 						th:field="*{condition}" th:value="${condition.getValue()}"
 						th:text="${condition.getKey()}" />
-					</label>
+					</label> 
+					<br>
+					<span class="text-danger" th:errors="*{condition}"></span>
 				</div>
 			</div>
 			<!-- shipping -->
